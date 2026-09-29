@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Una misión en Gotham 🦇</title>
+  <style>
+    :root { --yellow:#f5c518; --dark:#080b12; --panel:#121824; }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+      overflow:hidden; color:#fff; font-family:Arial,Helvetica,sans-serif;
+      background: radial-gradient(ellipse at 50% 30%, #273044 0%, #101621 42%, #05070b 100%);
+    }
+    body::before {
+      content:""; position:fixed; inset:0; opacity:.18; pointer-events:none;
+      background: repeating-linear-gradient(120deg, transparent 0 70px, #f5c518 71px 73px, transparent 74px 145px);
+      mask-image:linear-gradient(to bottom, transparent, black 30%, transparent);
+    }
+    .card {
+      width:min(92vw,620px); position:relative; z-index:1; text-align:center;
+      padding:clamp(25px,6vw,48px) 24px; border:2px solid var(--yellow);
+      border-radius:22px; background:rgba(10,14,22,.94);
+      box-shadow:0 0 35px #f5c51822, 0 0 0 7px #f5c5180c;
+    }
+    .bat { color:var(--yellow); font-size:clamp(48px,10vw,76px); line-height:1; text-shadow:0 0 18px #f5c51855; }
+    .eyebrow { color:var(--yellow); letter-spacing:4px; font-size:12px; font-weight:bold; margin:18px 0 10px; }
+    h1 { font-size:clamp(27px,6vw,42px); line-height:1.15; margin:0 0 14px; }
+    p { color:#c7cedb; line-height:1.55; margin:0 auto 27px; max-width:430px; }
+    .buttons { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; min-height:54px; }
+    button {
+      border:0; border-radius:999px; padding:15px 30px; font-weight:800; font-size:16px;
+      cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;
+    }
+    button:focus-visible { outline:3px solid white; outline-offset:4px; }
+    #yes { background:var(--yellow); color:#111; box-shadow:0 5px 0 #a98200; }
+    #yes:hover { transform:translateY(-2px); box-shadow:0 7px 0 #a98200; }
+    #no {
+      background:#202938; color:#fff; border:1px solid #596477;
+      position:fixed; left:calc(50% + 70px); top:calc(50% + 135px); z-index:5;
+    }
+    .foot { margin-top:28px; color:#737f92; font-size:11px; letter-spacing:2px; }
+    @media (max-width:420px) { .buttons { gap:12px; } #no { top:calc(50% + 160px); left:calc(50% + 45px); } }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="bat" aria-hidden="true">🦇</div>
+    <div class="eyebrow">BAT-SEÑAL ACTIVADA</div>
+    <h1>¿Querés comer sushi mañana conmigo?</h1>
+    <p>Hay una misión importante en Gotham… y solo vos podés acompañarme. 🍣</p>
+    <div class="buttons">
+      <button id="yes" type="button">¡SÍ, OBVIO! 💛</button>
+    </div>
+    <div class="foot">GOTHAM CITY · MISIÓN: SUSHI</div>
+  </main>
+  <button id="no" type="button">No 😈</button>
+  <script>
+    const noButton = document.getElementById('no');
+    const yesButton = document.getElementById('yes');
+
+    function moveNo() {
+      const pad = 12;
+      const maxX = Math.max(pad, window.innerWidth - noButton.offsetWidth - pad);
+      const maxY = Math.max(pad, window.innerHeight - noButton.offsetHeight - pad);
+      noButton.style.left = (pad + Math.random() * (maxX - pad)) + 'px';
+      noButton.style.top = (pad + Math.random() * (maxY - pad)) + 'px';
+    }
+    noButton.addEventListener('pointerenter', moveNo);
+    noButton.addEventListener('pointerdown', (event) => { event.preventDefault(); moveNo(); });
+    noButton.addEventListener('click', moveNo);
+    window.addEventListener('resize', moveNo);
+
+    yesButton.addEventListener('click', () => {
+      window.location.href = 'respuesta.html';
+    });
+  </script>
+</body>
+</html>
